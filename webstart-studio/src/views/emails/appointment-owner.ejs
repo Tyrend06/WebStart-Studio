@@ -1,0 +1,13 @@
+<div style="font-family:Arial,Helvetica,sans-serif;color:#000;max-width:560px;margin:0 auto;">
+  <h2 style="margin:0 0 16px;">Nieuwe afspraak geboekt</h2>
+  <table style="border-collapse:collapse;">
+    <tr><td style="padding:4px 16px 4px 0;color:#555;">Wanneer</td><td><strong><%= dateNl %> om <%= a.time %></strong></td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#555;">Naam</td><td><%= a.name %></td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#555;">E-mail</td><td><a href="mailto:<%= a.email %>"><%= a.email %></a></td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#555;">Telefoon</td><td><%= a.phone %></td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#555;">Bedrijf</td><td><%= a.company %> (<%= a.businessType %>)</td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#555;">Heeft al website</td><td><%= a.hasWebsite %></td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#555;vertical-align:top;">Doel</td><td style="white-space:pre-wrap;"><%= a.goal || '(niet ingevuld)' %></td></tr>
+    <tr><td style="padding:4px 16px 4px 0;color:#555;">Google Meet</td><td><% if (a.meetLink) { %><a href="<%= a.meetLink %>"><%= a.meetLink %></a><% } else { %>Niet aangemaakt (Google nog niet gekoppeld of fout, zie serverlog)<% } %></td></tr>
+  </table>
+</div>

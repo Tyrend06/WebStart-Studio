@@ -1,0 +1,136 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="page-hero" aria-labelledby="page-title">
+  <div class="container">
+    <p class="eyebrow">Afspraak</p>
+    <h1 id="page-title">Plan een gratis kennismaking</h1>
+    <p class="page-lead">In vier stappen plan je een online gesprek over jouw website. Je ontvangt direct een bevestiging met Google Meet-link.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container wizard-wrap">
+    <div
+      class="wizard"
+      id="wizard"
+      data-min="<%= range.min %>"
+      data-max="<%= range.max %>"
+      data-workdays="<%= range.workDays %>"
+    >
+      <ol class="progress" id="progress" aria-label="Voortgang">
+        <li class="progress-item is-current" data-step="1"><span>1</span> Jouw gegevens</li>
+        <li class="progress-item" data-step="2"><span>2</span> Je bedrijf</li>
+        <li class="progress-item" data-step="3"><span>3</span> Datum &amp; tijd</li>
+        <li class="progress-item" data-step="4"><span>4</span> Bevestigen</li>
+      </ol>
+
+      <form id="appointment-form" novalidate>
+        <!-- Stap 1 -->
+        <fieldset class="step" data-step="1">
+          <legend>Stap 1: Jouw gegevens</legend>
+          <div class="field">
+            <label for="a-name">Naam</label>
+            <input id="a-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="100">
+            <p class="field-error" data-error-for="name" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="a-email">E-mailadres</label>
+            <input id="a-email" name="email" type="email" autocomplete="email" required maxlength="254">
+            <p class="field-error" data-error-for="email" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="a-phone">Telefoonnummer</label>
+            <input id="a-phone" name="phone" type="tel" autocomplete="tel" required maxlength="20" pattern="[+()0-9][0-9 ().\-]{6,19}" placeholder="06 12345678">
+            <p class="field-error" data-error-for="phone" role="alert"></p>
+          </div>
+        </fieldset>
+
+        <!-- Stap 2 -->
+        <fieldset class="step" data-step="2" hidden>
+          <legend>Stap 2: Over je bedrijf</legend>
+          <div class="field">
+            <label for="a-company">Naam van je bedrijf</label>
+            <input id="a-company" name="company" type="text" autocomplete="organization" required minlength="2" maxlength="120">
+            <p class="field-error" data-error-for="company" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="a-type">Soort bedrijf</label>
+            <select id="a-type" name="businessType" required>
+              <option value="">Kies een branche</option>
+              <% businessTypes.forEach(function (type) { %>
+                <option value="<%= type %>"><%= type %></option>
+              <% }); %>
+            </select>
+            <p class="field-error" data-error-for="businessType" role="alert"></p>
+          </div>
+          <div class="field">
+            <span class="label" id="has-website-label">Heb je al een website?</span>
+            <div class="radio-row" role="radiogroup" aria-labelledby="has-website-label">
+              <label class="radio"><input type="radio" name="hasWebsite" value="ja" required> Ja</label>
+              <label class="radio"><input type="radio" name="hasWebsite" value="nee"> Nee</label>
+            </div>
+            <p class="field-error" data-error-for="hasWebsite" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="a-goal">Wat wil je bereiken met je website? <span class="optional">(optioneel)</span></label>
+            <textarea id="a-goal" name="goal" rows="4" maxlength="1000" placeholder="Bijvoorbeeld: meer nieuwe klanten, online afspraken, een nieuwe uitstraling..."></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Stap 3 -->
+        <fieldset class="step" data-step="3" hidden>
+          <legend>Stap 3: Kies datum en tijd</legend>
+          <p class="hint">Gesprekken duren 30 minuten, van maandag t/m vrijdag. Tijden zijn in Nederlandse tijd.</p>
+
+          <div class="scheduler">
+            <div class="calendar" id="calendar">
+              <div class="calendar-head">
+                <button type="button" class="cal-nav" id="cal-prev" aria-label="Vorige maand">&larr;</button>
+                <h3 id="cal-title" aria-live="polite"></h3>
+                <button type="button" class="cal-nav" id="cal-next" aria-label="Volgende maand">&rarr;</button>
+              </div>
+              <div class="calendar-weekdays" aria-hidden="true">
+                <span>ma</span><span>di</span><span>wo</span><span>do</span><span>vr</span><span>za</span><span>zo</span>
+              </div>
+              <div class="calendar-grid" id="cal-grid"></div>
+            </div>
+
+            <div class="times">
+              <h3 id="times-title">Kies eerst een datum</h3>
+              <div class="times-grid" id="times-grid" aria-live="polite"></div>
+            </div>
+          </div>
+          <p class="field-error" data-error-for="date" role="alert"></p>
+        </fieldset>
+
+        <!-- Stap 4 -->
+        <fieldset class="step" data-step="4" hidden>
+          <legend>Stap 4: Controleer en bevestig</legend>
+          <dl class="summary" id="summary"></dl>
+          <p class="hint">Na het bevestigen ontvang je een e-mail met de Google Meet-link.</p>
+        </fieldset>
+
+        <p class="form-status" id="wizard-status" role="status" aria-live="polite"></p>
+
+        <div class="wizard-actions">
+          <button type="button" class="btn btn--outline-dark" id="btn-back" hidden>Vorige</button>
+          <button type="button" class="btn btn--dark" id="btn-next">Volgende</button>
+          <button type="submit" class="btn btn--dark" id="btn-submit" hidden>Afspraak bevestigen</button>
+        </div>
+      </form>
+
+      <!-- Succes-scherm -->
+      <div class="success" id="success" hidden tabindex="-1">
+        <div class="success-icon" aria-hidden="true">&#10003;</div>
+        <h2>Je afspraak staat!</h2>
+        <p id="success-when"></p>
+        <p id="success-mail"></p>
+        <p id="success-meet" hidden><a class="btn btn--dark" id="success-meet-link" href="#" target="_blank" rel="noopener noreferrer">Open Google Meet</a></p>
+        <a class="btn btn--outline-dark" href="/">Terug naar home</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

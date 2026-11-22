@@ -1,0 +1,53 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="page-hero" aria-labelledby="page-title">
+  <div class="container">
+    <p class="eyebrow">Contact</p>
+    <h1 id="page-title">Neem contact met ons op</h1>
+    <p class="page-lead">Een vraag of een idee? Typ je bericht hieronder, dan ontvangen wij het direct per e-mail.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-wrap">
+    <form class="form" id="contact-form" novalidate>
+      <div class="field">
+        <label for="name">Naam</label>
+        <input id="name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="100">
+        <p class="field-error" data-error-for="name" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="email">E-mailadres</label>
+        <input id="email" name="email" type="email" autocomplete="email" required maxlength="254">
+        <p class="field-error" data-error-for="email" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="message">Bericht</label>
+        <textarea id="message" name="message" rows="7" required minlength="5" maxlength="3000"></textarea>
+        <p class="field-error" data-error-for="message" role="alert"></p>
+      </div>
+
+      <!-- Lokveld tegen spam: bezoekers zien dit niet -->
+      <div class="hp" aria-hidden="true">
+        <label for="bot_field">Laat dit veld leeg</label>
+        <input id="bot_field" name="bot_field" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button class="btn btn--dark" type="submit" id="contact-submit">Verstuur bericht</button>
+      <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <aside class="side-note">
+      <h2>Liever direct mailen?</h2>
+      <p><a href="mailto:<%= site.ownerEmail %>"><%= site.ownerEmail %></a></p>
+      <h2>Liever een gesprek?</h2>
+      <p>Plan een gratis online kennismaking.</p>
+      <a class="btn btn--outline-dark" href="/afspraak">Afspraak maken</a>
+    </aside>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

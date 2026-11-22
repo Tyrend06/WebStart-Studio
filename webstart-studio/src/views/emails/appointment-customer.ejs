@@ -1,0 +1,27 @@
+<div style="font-family:Arial,Helvetica,sans-serif;color:#000;max-width:560px;margin:0 auto;">
+  <div style="background:#000;color:#fff;padding:24px;">
+    <h1 style="margin:0;font-size:22px;"><%= site.name %></h1>
+  </div>
+  <div style="padding:24px 0;">
+    <h2 style="margin:0 0 12px;">Je afspraak is bevestigd</h2>
+    <p>Hoi <%= a.name %>,</p>
+    <p>Bedankt voor je aanvraag. We spreken je graag over de website voor <strong><%= a.company %></strong>.</p>
+
+    <table style="border-collapse:collapse;margin:16px 0;">
+      <tr><td style="padding:4px 16px 4px 0;color:#555;">Datum</td><td><strong><%= dateNl %></strong></td></tr>
+      <tr><td style="padding:4px 16px 4px 0;color:#555;">Tijd</td><td><strong><%= a.time %></strong> (Nederlandse tijd, 30 minuten)</td></tr>
+    </table>
+
+    <% if (a.meetLink) { %>
+      <p style="margin:24px 0;">
+        <a href="<%= a.meetLink %>" style="background:#000;color:#fff;text-decoration:none;padding:12px 20px;display:inline-block;">Deelnemen via Google Meet</a>
+      </p>
+      <p style="color:#555;font-size:13px;">Of kopieer deze link: <%= a.meetLink %></p>
+    <% } else { %>
+      <p>De Google Meet-link sturen we je zo snel mogelijk apart toe.</p>
+    <% } %>
+
+    <p>Kun je toch niet? Beantwoord dan deze e-mail, dan plannen we een nieuw moment.</p>
+    <p>Tot dan!<br><%= site.name %></p>
+  </div>
+</div>
